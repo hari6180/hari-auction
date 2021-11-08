@@ -5,8 +5,7 @@ export default class AuctionService {
     this.socket = socket;
   }
 
-  async getAuctions(username) {
-    const query = username ? `?username=${username}` : "";
+  async getAuctions() {
     return this.http.fetch(`/auctions`, {
       method: "GET",
       headers: this.getHeaders(),
@@ -36,11 +35,17 @@ export default class AuctionService {
     });
   }
 
-  async updateAuction(auctionId, title, description, startPrice, duration) {
+  async updateAuction(auctionId, auction) {
     return this.http.fetch(`/auctions/${auctionId}`, {
       method: "PUT",
       headers: this.getHeaders(),
-      body: JSON.stringify({ title, description, startPrice, duration }),
+      body: JSON.stringify({
+        title: auction.title,
+        description: auction.description,
+        startPrice: auction.startPrice,
+        duration: auction.duration,
+        itemImage: auction.itemImage,
+      }),
     });
   }
 

@@ -32,10 +32,7 @@ export async function create(title, description, startPrice, duration, itemImage
     description,
     startPrice,
     duration,
-    itemImage: {
-      data: Buffer,
-      contentType: String,
-    },
+    itemImage,
     name: name,
     username: username,
   };
@@ -44,7 +41,8 @@ export async function create(title, description, startPrice, duration, itemImage
     .then((data) => mapOptionalTweet({ ...auction, _id: data.insertedId }));
 }
 
-export async function update(id, title, description, startPrice, duration, itemImage) {
+export async function update(id, auction) {
+  const { title, description, startPrice, duration, itemImage } = auction;
   return getAuctions()
     .findOneAndUpdate(
       { _id: new ObjectId(id) },

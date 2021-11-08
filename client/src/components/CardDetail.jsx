@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import Countdown from "react-countdown";
+import EditAuctionForm from "./EditAuctionForm";
 
 const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
   return (
@@ -39,30 +40,16 @@ const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
           </div>
           <div className=" align-card-center">
             <div>
-              {!props.owner ? (
-                <button
-                  onClick={() => {
-                    props.bidAuction();
-                  }}
-                  className="btn btn-outline-secondary w-100"
-                >
-                  Place a Bid
-                </button>
-              ) : props.owner.email === props.card.email ? (
-                <button
-                  onClick={() => props.endAuction(props.card.id)}
-                  className="btn btn-outline-secondary w-100"
-                >
-                  Cancel Auction
-                </button>
-              ) : (
-                <button
-                  onClick={() => props.bidAuction(props.card.id, props.card.curPrice)}
-                  className="btn btn-outline-secondary w-100"
-                >
-                  Place a Bid
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  props.card.startPrice = Number(props.card.startPrice) + 1;
+                  console.log(props.card);
+                  props.onUpdate(props.card.id, props.card);
+                }}
+                className="btn btn-outline-secondary w-100"
+              >
+                Place a Bid
+              </button>
             </div>
             <Form>
               <Form.Check type="checkbox" id="default-checkbox" label="Activate the auto-bidding" />
@@ -74,19 +61,16 @@ const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
   );
 };
 
-const CardDetail = ({ card }) => {
+const CardDetail = ({ card, onUpdate }) => {
   const { duration } = card;
 
   return (
     <Countdown
-      // owner={owner}
       date={duration}
       // bidAuction={bidAuction}
-      // endAuction={onDelete}
-      // updateAuction={onUpdate}
       card={card}
+      onUpdate={onUpdate}
       renderer={renderer}
-      // selectItem={selectItem}
     />
   );
 };

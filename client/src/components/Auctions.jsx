@@ -9,7 +9,6 @@ import CardDetail from "./CardDetail";
 const Auctions = memo(({ auctionService, username, addable }) => {
   const [auctions, setAuctions] = useState([]);
   const [error, setError] = useState("");
-  const history = useHistory();
   const { user } = useAuth();
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -37,15 +36,13 @@ const Auctions = memo(({ auctionService, username, addable }) => {
       .then(() => setAuctions((auctions) => auctions.filter((auction) => auction.id !== auctionId)))
       .catch((error) => setError(error.toString()));
 
-  const onUpdate = (auctionId, text) =>
+  const onUpdate = (auctionId, auction) =>
     auctionService
-      .updateAuction(auctionId, text)
+      .updateAuction(auctionId, auction)
       .then((updated) =>
         setAuctions((auctions) => auctions.map((item) => (item.id === updated.id ? updated : item)))
       )
       .catch((error) => error.toString());
-
-  const onUsernameClick = (auction) => history.push(`/${auction.username}`);
 
   const onError = (error) => {
     setError(error.toString());
@@ -64,7 +61,7 @@ const Auctions = memo(({ auctionService, username, addable }) => {
         {auctions.length === 0 && <p className="auctions-empty">No Auctions Yet</p>}
         {selectedItem && (
           <div>
-            <CardDetail card={selectedItem} />
+            <CardDetail card={selectedItem} onUpdate={onUpdate} />
           </div>
         )}
         {auctions && (
@@ -77,7 +74,6 @@ const Auctions = memo(({ auctionService, username, addable }) => {
                   owner={auction.username === user.username}
                   onDelete={onDelete}
                   onUpdate={onUpdate}
-                  onUsernameClick={onUsernameClick}
                   selectItem={selectItem}
                 />
               );

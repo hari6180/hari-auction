@@ -1,6 +1,5 @@
 import React, { memo, useState } from "react";
 import parseDate from "../util/date";
-import Avatar from "./Avatar";
 import EditAuctionForm from "./EditAuctionForm";
 import Countdown from "react-countdown";
 
@@ -15,7 +14,7 @@ const renderer = ({ days, hours, minutes, seconds, completed, props, owner }) =>
         <div
           style={{
             height: "320px",
-            // backgroundImage: `url(${props.item.itemImage})`,
+            backgroundImage: `url(${props.item.itemImage})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",

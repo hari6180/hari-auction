@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Form, Modal, Button, Alert, Row, Col } from "react-bootstrap";
 
-const NewAuctionForm = ({ auctionService, onError }) => {
+const NewAuctionForm = ({ username, auctionService, onError }) => {
   const [auction, setAuction] = useState("");
 
   const [showForm, setShowForm] = useState(false);
@@ -11,18 +11,12 @@ const NewAuctionForm = ({ auctionService, onError }) => {
   const itemDesc = useRef();
   const startPrice = useRef();
   const itemDuration = useRef();
+
+  // TODO: Add image
   const itemImage = useRef();
 
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
-
-  // const imgTypes = ["image/png", "image/jpeg", "image/jpg"];
-
-  const onChange = (event) => {
-    // if (!imgTypes.includes(itemImage.current.files[0].type)) {
-    //   return setError("Please use a vaild image");
-    // }
-  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -37,12 +31,10 @@ const NewAuctionForm = ({ auctionService, onError }) => {
       description: itemDesc.current.value,
       startPrice: startPrice.current.value,
       duration: dueDate,
-      // itemImage: itemImage.current.files[0],
+      itemImage: itemImage.current.value,
     };
 
     setAuction(newAuction);
-
-    console.log(newAuction);
 
     auctionService
       .postAuction(newAuction)
@@ -70,13 +62,13 @@ const NewAuctionForm = ({ auctionService, onError }) => {
               <Col>
                 <Form.Group>
                   <Form.Label>Item Title</Form.Label>
-                  <Form.Control type="text" required ref={itemTitle} onChange={onChange} />
+                  <Form.Control type="text" required ref={itemTitle} />
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group>
                   <Form.Label>Item Description</Form.Label>
-                  <Form.Control type="text" required ref={itemDesc} onChange={onChange} />
+                  <Form.Control type="text" required ref={itemDesc} />
                 </Form.Group>
               </Col>
             </Row>
@@ -84,13 +76,13 @@ const NewAuctionForm = ({ auctionService, onError }) => {
               <Col>
                 <Form.Group>
                   <Form.Label>Start Price</Form.Label>
-                  <Form.Control type="number" required ref={startPrice} onChange={onChange} />
+                  <Form.Control type="number" required ref={startPrice} />
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group>
                   <Form.Label>Item Duration in hours</Form.Label>
-                  <Form.Control type="number" required ref={itemDuration} onChange={onChange} />
+                  <Form.Control type="number" required ref={itemDuration} />
                 </Form.Group>
               </Col>
             </Row>
@@ -98,21 +90,15 @@ const NewAuctionForm = ({ auctionService, onError }) => {
               <Col>
                 <Form.Group>
                   <Form.Label>Seller</Form.Label>
-                  {/* <Form.Control type="text" value={currentUser.email} readOnly  /> */}
+                  <Form.Control type="text" value={username} readOnly />
                 </Form.Group>
               </Col>
-              {/* <Col>
+              <Col>
                 <Form.Group>
-                  <Form.Label>Item Image</Form.Label>
-                  <Form.File
-                    label="Select Item Image"
-                    custom
-                    required
-                    ref={itemImage}
-                    onChange={onChange}
-                  />
+                  <Form.Label>Item Image URL</Form.Label>
+                  <Form.Control type="text" required ref={itemImage} />
                 </Form.Group>
-              </Col> */}
+              </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer>

@@ -32,7 +32,10 @@ export async function create(title, description, startPrice, duration, itemImage
     description,
     startPrice,
     duration,
-    itemImage,
+    itemImage: {
+      data: Buffer,
+      contentType: String,
+    },
     name: name,
     username: username,
   };

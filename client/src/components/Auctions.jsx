@@ -5,7 +5,7 @@ import NewAuctionForm from "./NewAuctionForm";
 import AuctionCard from "./AuctionCard";
 import { useAuth } from "../context/AuthContext";
 
-const Auctions = memo(({ auctionService, username, addable }) => {
+const Auctions = memo(({ FileInput, auctionService, username, addable }) => {
   const [auctions, setAuctions] = useState([]);
   const [error, setError] = useState("");
   const history = useHistory();
@@ -51,7 +51,14 @@ const Auctions = memo(({ auctionService, username, addable }) => {
   return (
     <div className="py-5">
       <div className="container">
-        {addable && <NewAuctionForm auctionService={auctionService} onError={onError} />}
+        {addable && (
+          <NewAuctionForm
+            username={username}
+            FileInput={FileInput}
+            auctionService={auctionService}
+            onError={onError}
+          />
+        )}
         {error && <Banner text={error} isAlert={true} transient={true} />}
         {auctions.length === 0 && <p className="auctions-empty">No Auctions Yet</p>}
         {auctions && (

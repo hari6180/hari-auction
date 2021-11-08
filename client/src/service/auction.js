@@ -22,6 +22,7 @@ export default class AuctionService {
         description: auction.description,
         startPrice: auction.startPrice,
         duration: auction.duration,
+        itemImage: auction.itemImage,
         username: "Hari",
         name: "Hari",
       }),

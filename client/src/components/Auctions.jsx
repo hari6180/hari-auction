@@ -4,12 +4,18 @@ import Banner from "./Banner";
 import NewAuctionForm from "./NewAuctionForm";
 import AuctionCard from "./AuctionCard";
 import { useAuth } from "../context/AuthContext";
+import CardDetail from "./CardDetail";
 
-const Auctions = memo(({ FileInput, auctionService, username, addable }) => {
+const Auctions = memo(({ auctionService, username, addable }) => {
   const [auctions, setAuctions] = useState([]);
   const [error, setError] = useState("");
   const history = useHistory();
   const { user } = useAuth();
+  const [selectedItem, setSelectedItem] = useState("");
+
+  const selectItem = (card) => {
+    setSelectedItem(card);
+  };
 
   useEffect(() => {
     auctionService
@@ -52,15 +58,15 @@ const Auctions = memo(({ FileInput, auctionService, username, addable }) => {
     <div className="py-5">
       <div className="container">
         {addable && (
-          <NewAuctionForm
-            username={username}
-            FileInput={FileInput}
-            auctionService={auctionService}
-            onError={onError}
-          />
+          <NewAuctionForm username={username} auctionService={auctionService} onError={onError} />
         )}
         {error && <Banner text={error} isAlert={true} transient={true} />}
         {auctions.length === 0 && <p className="auctions-empty">No Auctions Yet</p>}
+        {selectedItem && (
+          <div>
+            <CardDetail card={selectedItem} />
+          </div>
+        )}
         {auctions && (
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {auctions.map((auction) => {
@@ -72,6 +78,7 @@ const Auctions = memo(({ FileInput, auctionService, username, addable }) => {
                   onDelete={onDelete}
                   onUpdate={onUpdate}
                   onUsernameClick={onUsernameClick}
+                  selectItem={selectItem}
                 />
               );
             })}

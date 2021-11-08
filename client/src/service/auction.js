@@ -7,7 +7,7 @@ export default class AuctionService {
 
   async getAuctions(username) {
     const query = username ? `?username=${username}` : "";
-    return this.http.fetch(`/auctions${query}`, {
+    return this.http.fetch(`/auctions`, {
       method: "GET",
       headers: this.getHeaders(),
     });
@@ -30,14 +30,14 @@ export default class AuctionService {
   }
 
   async deleteAuction(auctionId) {
-    return this.http.fetch(`/auction/${auctionId}`, {
+    return this.http.fetch(`/auctions/${auctionId}`, {
       method: "DELETE",
       headers: this.getHeaders(),
     });
   }
 
   async updateAuction(auctionId, title, description, startPrice, duration) {
-    return this.http.fetch(`/auction/${auctionId}`, {
+    return this.http.fetch(`/auctions/${auctionId}`, {
       method: "PUT",
       headers: this.getHeaders(),
       body: JSON.stringify({ title, description, startPrice, duration }),

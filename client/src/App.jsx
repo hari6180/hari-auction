@@ -37,9 +37,9 @@ function App({ auctionService }) {
           <Route exact path="/">
             <AllAuctions username={user.username} auctionService={auctionService} />
           </Route>
-          <Route exact path="/:username">
+          {/* <Route exact path="/:username">
             <MyAuctions username={user.username} auctionService={auctionService} />
-          </Route>
+          </Route> */}
         </>
         )
       </Switch>

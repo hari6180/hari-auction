@@ -67,7 +67,7 @@ const renderer = ({ days, hours, minutes, seconds, completed, props, owner }) =>
   );
 };
 
-const AuctionCard = ({ auction, owner }) => {
+const AuctionCard = ({ auction, owner, onDelete, onUpdate, selectItem }) => {
   // let expireDate = item.duration;
   // const { currentUser, bidAuction, endAuction } = useContext(AuthContext);
   const { id, username, name, title, description, startPrice, duration, itemImage } = auction;
@@ -79,10 +79,11 @@ const AuctionCard = ({ auction, owner }) => {
       owner={owner}
       date={duration}
       // bidAuction={bidAuction}
-      // endAuction={endAuction}
+      endAuction={onDelete}
+      updateAuction={onUpdate}
       item={auction}
       renderer={renderer}
-      // selectItem={selectItem}
+      selectItem={selectItem}
     />
   );
 };

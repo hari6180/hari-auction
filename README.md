@@ -1,7 +1,7 @@
 # Hari's auction
 
 ## How to start?
-**Both should be implemented**
+**They must be executed at the same time.**
 
 ### Server
 ```
@@ -21,11 +21,11 @@ npm start
 # Home Page – Item’s listing
 ## Login & Register
 ![login](https://user-images.githubusercontent.com/63278754/140778158-10cfa1d7-236d-446d-928f-1332d1fed75c.png)
-* If you don't have an account, check box and you can sign up for it.
+* If you don't have an account, check the box and you can sign up for it.
 
 ## View All Auctions
 ![view](https://user-images.githubusercontent.com/63278754/140778161-5e709a31-2fc0-4459-825f-336bbd64531e.png)
-* When you sign in the page, you can see the every auction items.
+* When you sign in to the page, you can see every auction item.
 
 ## Create new Auction - modal
 ![create](https://user-images.githubusercontent.com/63278754/140778152-320ea8cd-5c28-4f64-b490-b92b080b6e4a.png)

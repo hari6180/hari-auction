@@ -1,6 +1,4 @@
-import React, { memo, useState } from "react";
-import parseDate from "../util/date";
-import EditAuctionForm from "./EditAuctionForm";
+import React, { useState } from "react";
 import Countdown from "react-countdown";
 
 const renderer = ({ days, hours, minutes, seconds, completed, props, owner }) => {

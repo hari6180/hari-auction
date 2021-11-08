@@ -11,8 +11,6 @@ const NewAuctionForm = ({ username, auctionService, onError }) => {
   const itemDesc = useRef();
   const startPrice = useRef();
   const itemDuration = useRef();
-
-  // TODO: Add image
   const itemImage = useRef();
 
   const openForm = () => setShowForm(true);

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import Countdown from "react-countdown";
-import EditAuctionForm from "./EditAuctionForm";
 
 const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
   return (
@@ -52,7 +51,35 @@ const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
               </button>
             </div>
             <Form>
-              <Form.Check type="checkbox" id="default-checkbox" label="Activate the auto-bidding" />
+              <Form.Check
+                className="my-3"
+                onChange={props.onCheck}
+                type="checkbox"
+                id="default-checkbox"
+                label="Activate the auto-bidding"
+              />
+              {props.checked && (
+                <>
+                  <Row>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Maximum bid</Form.Label>
+                        <Form.Control type="number" required />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Bid Alert notification</Form.Label>
+                        <Form.Control type="number" required />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Button className="btn w-100 my-3" variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </>
+              )}
             </Form>
           </div>
         </div>
@@ -63,6 +90,14 @@ const renderer = ({ days, hours, minutes, seconds, completed, props }) => {
 
 const CardDetail = ({ card, onUpdate }) => {
   const { duration } = card;
+  const [checked, setChecked] = useState(false);
+  const onCheck = () => {
+    if (!checked) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  };
 
   return (
     <Countdown
@@ -71,6 +106,8 @@ const CardDetail = ({ card, onUpdate }) => {
       card={card}
       onUpdate={onUpdate}
       renderer={renderer}
+      onCheck={onCheck}
+      checked={checked}
     />
   );
 };

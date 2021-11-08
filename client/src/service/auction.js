@@ -13,16 +13,15 @@ export default class AuctionService {
     });
   }
 
-  async postAuction(title, description, startPrice, duration, itemImage) {
-    return this.http.fetch(`/auction`, {
+  async postAuction(auction) {
+    return this.http.fetch(`/auctions`, {
       method: "POST",
       headers: this.getHeaders(),
       body: JSON.stringify({
-        title,
-        description,
-        startPrice,
-        duration,
-        itemImage,
+        title: auction.title,
+        description: auction.description,
+        startPrice: auction.startPrice,
+        duration: auction.duration,
         username: "Hari",
         name: "Hari",
       }),

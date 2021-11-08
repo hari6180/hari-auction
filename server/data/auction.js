@@ -33,7 +33,6 @@ export async function create(title, description, startPrice, duration, itemImage
     startPrice,
     duration,
     itemImage,
-    userId,
     name: name,
     username: username,
   };

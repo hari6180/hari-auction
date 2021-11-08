@@ -22,20 +22,6 @@ const NewAuctionForm = ({ auctionService, onError }) => {
     // if (!imgTypes.includes(itemImage.current.files[0].type)) {
     //   return setError("Please use a vaild image");
     // }
-
-    let currentDate = new Date();
-    let dueDate = currentDate.setHours(currentDate.getHours() + itemDuration.current.value);
-
-    let newAuction = {
-      // email: currentUser.email,
-      title: itemTitle.current.value,
-      desc: itemDesc.current.value,
-      curPrice: startPrice.current.value,
-      duration: dueDate,
-      itemImage: itemImage.current.files[0],
-    };
-
-    setAuction(newAuction);
   };
 
   const onSubmit = async (event) => {
@@ -43,8 +29,23 @@ const NewAuctionForm = ({ auctionService, onError }) => {
     setError("");
     closeForm();
 
+    let currentDate = new Date();
+    let dueDate = currentDate.setHours(currentDate.getHours() + itemDuration.current.value);
+
+    let newAuction = {
+      title: itemTitle.current.value,
+      description: itemDesc.current.value,
+      startPrice: startPrice.current.value,
+      duration: dueDate,
+      // itemImage: itemImage.current.files[0],
+    };
+
+    setAuction(newAuction);
+
+    console.log(newAuction);
+
     auctionService
-      .postAuction(auction)
+      .postAuction(newAuction)
       .then((created) => {
         setAuction("");
       })
@@ -100,7 +101,7 @@ const NewAuctionForm = ({ auctionService, onError }) => {
                   {/* <Form.Control type="text" value={currentUser.email} readOnly  /> */}
                 </Form.Group>
               </Col>
-              <Col>
+              {/* <Col>
                 <Form.Group>
                   <Form.Label>Item Image</Form.Label>
                   <Form.File
@@ -111,7 +112,7 @@ const NewAuctionForm = ({ auctionService, onError }) => {
                     onChange={onChange}
                   />
                 </Form.Group>
-              </Col>
+              </Col> */}
             </Row>
           </Modal.Body>
           <Modal.Footer>
